@@ -1,0 +1,10 @@
+1.a) O Output é:
+	2. x = 0
+	3. 6906; x = 0
+	1. x = 2
+	3. 0; x = 2
+
+	Pois devido ou fork e à criação de um novo processo a linha 3. é repetida nos dois processos.
+	Para cada processo o x vai ser diferente pois as alteracoes ao seu valor aconteceram depois do fork.
+
+1.b) Não é garantido sempre mas normalmente o processo pai tem prioridade logo o output da alinea acima será o mostrado.
