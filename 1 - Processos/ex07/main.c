@@ -20,21 +20,21 @@ int main ()
 	int numbers[ARRAY_SIZE];	/* array to lookup */
 
 	time_t t;					/* needed to initialize random number generator (RNG) */
-	int i;
+	int j;
 
 	/* intializes RNG (srand():stdlib.h; time(): time.h) */
 	srand ((unsigned) time (&t));
 
 	/* initialize array with random numbers (rand(): stdlib.h) */
-	for (i = 0; i < ARRAY_SIZE; i++){
-		numbers[i] = rand () % 1000;
+	for (j = 0; j < ARRAY_SIZE; j++){
+		numbers[j] = rand () % 10000;
 	}
 	
-	
+	int i;
 	int n;						/* the number to find */
 	int count = 0;				/* how many times the number n is found */
 
-	n = rand () % 1000;		/* initialize n */
+	n = rand () % 10000;		/* initialize n */
 	
 	int p = fork();
 	fail(p);

@@ -1,0 +1,1 @@
+9.a) O output em nenhum dos testes saiu ordenado apesar de ser possivel isso acontecer. Os precessos filhos correm lado-a-lado logo não é possivel garantir que o output é sempre ordenado, a menos que se espere que um processo filho acabe antes de iniciar um novo (fazer wait() no processo pai antes do fazer novo fork()).
