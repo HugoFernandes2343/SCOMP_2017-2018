@@ -1,0 +1,1 @@
+a) Nao aparecem  todos  os  processos ao executar o comando ps, o segundo processo criado não aparece porque este é concluido com a execução do comando wait. O processo pai entra  num ciclo infinito com a declaração de um while no fim do codigo, como tal o primeiro processo filho fica num estado zombie porque acabou antes do processo pai.

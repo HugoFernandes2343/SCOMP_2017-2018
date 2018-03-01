@@ -1,10 +1,10 @@
 #variaveis
 
-MAIN = c
-EXEC = ex06c 
+MAIN = b
+EXEC = ex06b
 
 ${EXEC}: ${MAIN}.o
-	gcc -Wall -g ${MAIN}.o -o ${EXEC}
+	gcc -Wall -g ${MAIN}.o  -o ${EXEC}
 
 ${MAIN}.o: ${MAIN}.c
 	gcc -Wall -g -c ${MAIN}.c

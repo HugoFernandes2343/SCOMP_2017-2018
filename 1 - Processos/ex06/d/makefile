@@ -1,6 +1,6 @@
 #variaveis
 
-MAIN = main
+MAIN = d
 EXEC = ex06c 
 
 ${EXEC}: ${MAIN}.o
