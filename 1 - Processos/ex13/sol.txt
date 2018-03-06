@@ -1,0 +1,2 @@
+13.a) 1
+13.b) A função execlp, neste caso, vai executar o comando echo com o parametro "SCOMP", ou seja vai escrever no terminal "SCOMP" 1 vez.
