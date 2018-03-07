@@ -12,7 +12,7 @@ void fail(int p){
 }
 
 int main(){
-	int check;
+	int check = 1;
 	
 	do{
 		char path[100];
@@ -35,10 +35,9 @@ int main(){
 			printf("O caminho existe.\n");
 		} else {
 			printf("O caminho não existe.\n");
+			check = 0;
 		}
 			
-		printf("Verificar outro caminho? (0-não / 1-sim)\n");
-		scanf("%d", &check);
 	}while(check != 0);
 }
 	
