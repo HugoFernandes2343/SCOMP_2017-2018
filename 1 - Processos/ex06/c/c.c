@@ -8,10 +8,17 @@
 int main () {
     int i;
     int STATUS;
-    int id[4];
+    pid_t id[4];
+    
    	for (i = 0; i < 4; i++){
-		pid_t p = fork ();
-        if (p == 0){
+		id[i] = fork();
+		
+		if(id[i] == -1){
+			printf("Error unable to fork.\n");
+			exit(1);			
+		}
+		
+        if (id[i] == 0){
 			id[i] = getpid();
 		   	sleep (1);	/*sleep(): unistd.h */
 		 	printf ("This is the end.\n");
@@ -21,8 +28,8 @@ int main () {
     for (i = 0; i < 4; i++){
 		int p = id[i];
 		if(p % 2 == 0){
-			waitpid(p,&STATUS,0);
-			printf("waiting for %d \n",p);
+			waitpid(id[i],&STATUS,0);
+			printf("waiting for %d \n",id[i]);
 		}
 		
     }

@@ -1,30 +1,35 @@
 #include <stdio.h>
-#include <unistd.h>	
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <wait.h>
 
-int main () 
-{
+
+int main () {
     int i;
     int status;
-	int childnumber = 0;
-	
-    for (i = 0; i < 4; i++){
-		pid_t p = fork ();
-        if (p == 0){
-		    		sleep (1);		/*sleep(): unistd.h */
-		    		printf ("This is the end.\n");
-            		exit(0);
-        }else{
-			if(p % 2 == 0){
-				waitpid(p,NULL,0);
-				printf("waiting for %d \n",p);
-			}
+    pid_t id[4];
+    
+   	for (i = 0; i < 4; i++){
+		id[i] = fork();
+		
+		if(id[i] == -1){
+			printf("Error unable to fork.\n");
+			exit(1);			
 		}
-    }
-        if (fork () == 0) {
-			childnumber = childnumber + 1;
-			printf("Child number %d \n",childnumber);
-            sleep (1);		/*sleep(): unistd.h */
+		
+        if (id[i] == 0){
+		   	sleep (1);	/*sleep(): unistd.h */
+		 	printf("This is the end of the process created in order %d. \n", i+1);
+          	exit(i+1);
         }
     }
-    printf ("This is the end.\n");
+    for (i = 0; i < 4; i++){
+		if(id[i] % 2 == 0){
+			waitpid(id[i],&status,0);
+			printf("Ended the wait for %d (child number %d)\n",id[i],WEXITSTATUS(status));
+		}
+		
+    }
+    printf("This is the end.\n");
 }
