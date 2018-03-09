@@ -1,0 +1,2 @@
+a) the string "scomp" will be printed 8 times. 
+b) the exec invocation will run once for each process, that being the original first one and the 7 newly created
