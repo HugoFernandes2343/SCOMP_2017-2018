@@ -3,7 +3,7 @@
 INCLUDES =
 SOURCES = main.c
 OBJFILES = main.o
-EXEC = ex16
+EXEC = ex01
 
 
 
