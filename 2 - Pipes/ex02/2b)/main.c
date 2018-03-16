@@ -3,6 +3,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include "struct.h"
 
 void fail_fork(int p){
 	if(p == -1) {
@@ -18,10 +19,8 @@ void fail_pipe(int p){
 	}
 }
 
-
 int main(){
-	int number;
-	char string[1000];
+	
 
 	
 	int fd[2];
@@ -32,32 +31,28 @@ int main(){
 	
 	if(p == 0){
 		close(fd[1]);
+		s1 str_r;
 
-		if( read(fd[0],&number,sizeof(number)) < 0 ){
-			 perror("Error reading number");			 
+		if( read(fd[0],&str_r,sizeof(str_r)) < 0 ){
+			 perror("Error reading structure");			 
 		}
-		printf("child number: %i\n", number);
 		
-		if( read(fd[0], &string, sizeof(string)) < 0){
-			perror("Error reading string");
-		}
-		printf("child string: %s\n", string);
+		printf("child number: %i\n", str_r.number);
+		printf("child string: %s\n", str_r.string);
 	
 		close(fd[0]);
 		exit(0);
 	} 
 	
+	s1 str_wr;
 	printf("Escreva um nr:\n");
-	scanf("%i%*c", &number);
+	scanf("%i%*c", &str_wr.number);
 	printf("Escreva uma string:\n");
-	fgets(string, 10000, stdin);
+	fgets(str_wr.string, 10000, stdin);
 	
 	close(fd[0]);
-	if(write( fd[1], &number, sizeof(number))<0){
-		perror("Error writing number");
-	}
-	if(write( fd[1], &string, sizeof(string))<0){
-		perror("Error writing number");
+	if(write( fd[1], &str_wr, sizeof(str_wr))<0){
+		perror("Error writing structure");
 	}
 
 	
