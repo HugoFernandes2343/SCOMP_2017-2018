@@ -60,6 +60,7 @@ int main(){
 		perror("Error writing number");
 	}
 
+	wait(0);
 	
 }
 

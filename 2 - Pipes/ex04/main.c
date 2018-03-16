@@ -3,7 +3,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include "struct.h"
 
 void fail_fork(int p){
 	if(p == -1) {
@@ -21,8 +20,6 @@ void fail_pipe(int p){
 
 int main(){
 	
-
-	
 	int fd[2];
 	fail_pipe(pipe(fd));
 	
@@ -31,30 +28,39 @@ int main(){
 	
 	if(p == 0){
 		close(fd[1]);
-		s1 str_r;
-
-		if( read(fd[0],&str_r,sizeof(str_r)) < 0 ){
-			 perror("Error reading structure");			 
-		}
+		int c;
+		do {
+			if( read(fd[0], &c, sizeof(c)) < 0 ){
+				perror("Error reading char");			 
+			}
+			if(c != EOF){
+				putchar(c);
+			}
+		} while (c != EOF);
 		
-		printf("child number: %i\n", str_r.number);
-		printf("child string: %s\n", str_r.string);
-	
 		close(fd[0]);
 		exit(0);
-	} 
+	}
 	
-	s1 str_wr;
-	printf("Escreva um nr:\n");
-	scanf("%i%*c", &str_wr.number);
-	printf("Escreva uma string:\n");
-	fgets(str_wr.string, 10000, stdin);
+	int c;
+	FILE *file;
+	file = fopen("test.txt", "r");
 	
 	close(fd[0]);
-	if(write( fd[1], &str_wr, sizeof(str_wr))<0){
-		perror("Error writing structure");
+	if (file) {
+		while ((c = getc(file)) != EOF){
+			if(write( fd[1], &c, sizeof(c))<0){
+				perror("Error writing char");
+			}			
+		} 	
+		if(write( fd[1], &c, sizeof(c))<0){
+			perror("Error sending file end");
+		}
+		
+		fclose(file);
+		close(fd[1]);
 	}
-
+	
 	wait(0);
 }
 
