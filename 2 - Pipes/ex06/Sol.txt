@@ -1,0 +1,1 @@
+6a) O Pipe funciona como um mecanismo de sincronização pois quando recebe uma ordem de leitura\escrita fica bloqueado a espera da ordem de escrita\leitura respetiva.
