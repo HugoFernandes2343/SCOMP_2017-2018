@@ -1,9 +1,9 @@
 # variaveis
 
-INCLUDES =
+INCLUDES = struct.h
 SOURCES = main.c
-OBJFILES = main.o
-EXEC = ex05
+OBJFILES = main.o struct.o
+EXEC = ex09
 
 
 
