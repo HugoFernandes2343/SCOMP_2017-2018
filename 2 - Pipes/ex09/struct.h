@@ -7,4 +7,5 @@ typedef struct {
 } record;
 void fail_fork(int p);
 void fail_pipe(int p);
+void incrementRecords(record* sales);
 #endif

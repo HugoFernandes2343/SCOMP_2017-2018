@@ -2,7 +2,7 @@
 
 INCLUDES = struct.h
 SOURCES = main.c
-OBJFILES = main.o struct.o
+OBJFILES = main.o
 EXEC = ex09
 
 
