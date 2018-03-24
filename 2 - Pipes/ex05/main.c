@@ -24,7 +24,7 @@ void convert(char* strTemp){
 			
 			}
 	}
-
+close(childRead[i][0]);
 int main(){
 	
 	int up[2];
