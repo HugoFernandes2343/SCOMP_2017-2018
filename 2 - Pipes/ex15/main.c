@@ -7,8 +7,6 @@
 #include <string.h>
 #include <sys/wait.h>
 
-#define READ_END 0
-
 void fail_fork(int p){
 	if(p == -1) {
 		perror("Fork falhou\n");
