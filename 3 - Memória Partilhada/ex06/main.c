@@ -11,7 +11,7 @@
 #include <sys/mman.h>
 #include "struct.h"
 
-#define CHILDS 10
+#define CHILDS 1
 #define NUMBS 10000
 
 void fail_unmap(int r){
@@ -48,6 +48,8 @@ int main(){
 	pid_t fo;
 	time_t t;
 	srand ((unsigned) time (&t));
+	double time; 											//tempo em segundos para correr o sort in seconds of sort
+	clock_t start, end;										//clocks usados para temporizar a transferencias de dados
 	
 	/*Preenche array com numeros random*/
 	int numbers[NUMBS];
@@ -63,6 +65,8 @@ int main(){
 	
 	/*mapear objeto de memoria partilhada*/
 	localMax = (array*) mmap(NULL,data_size,PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
+	
+	start = clock();
 	
 	/*ciclo for que cria cada processo filho*/
 	for(int i = 0; i < CHILDS; i++){
@@ -86,16 +90,20 @@ int main(){
 	for(int i = 0; i<10; i++){
 		wait(0);
 	}
+	end = clock();
 	
 	/*calcula o max global, imprime resultado*/
 	int max = -1;
 	for(int i = 0; i<10; i++){
-		printf("Local Max nr %i: %i\n", i, localMax->arr[i]);
+		//printf("Local Max nr %i: %i\n", i, localMax->arr[i]);
 		if(localMax->arr[i] > max){
 			max = localMax->arr[i];
 		}
 	}
 	printf("Global max: %i\n", max);
+	
+	time = (double)(end-start)/CLOCKS_PER_SEC; //diferenca entre clocks a dividir pelos clocks por segundo = tempo
+	printf("Tempo: %f\n", time);
 	
 	/*Desliga o objeto de memoria partilhada, fecha o descritor e remove a memoria partilhada do sistema de ficheiros*/
 	fail_unmap(munmap(localMax, data_size));
