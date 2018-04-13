@@ -59,8 +59,6 @@ int main(){
 		exit(1);
 	}
 	
-	int p3[2];
-	fail_pipe(pipe(p3));
 	pid_t fo3 = fork();
 	fail_fork(fo3);
 	
@@ -71,8 +69,6 @@ int main(){
 		close(p1[1]);
 		close(p2[0]);
 		close(p2[1]);
-		close(p3[0]);
-		close(p3[1]);
 		
 		execlp("wc", "wc", "-l", (char*) NULL);
 		perror("Exec failed");
