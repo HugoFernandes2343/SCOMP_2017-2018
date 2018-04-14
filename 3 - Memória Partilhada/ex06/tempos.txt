@@ -6,7 +6,7 @@ Nr of processes ---- time (s)
 15 ---- 0.000650
 20 ---- 0.000797
 
-Como a quantidade de numeros no array a percorrer é muito baixa (10000) quantos mais processos forem criados pior poiso tempo de criaçao de um processo é muito elevado
- se comparar os com o nr reduzido de numeros que ele vai percorrer.
+Como a quantidade de numeros no array a percorrer é muito baixa (10000) quantos mais processos forem criados pior pois o tempo de criaçao de um processo é muito elevado
+ se compararmos com o nr reduzido de numeros que ele vai percorrer.
 
 
