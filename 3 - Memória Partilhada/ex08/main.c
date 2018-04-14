@@ -13,12 +13,12 @@
 #define STR_SIZE 50
 #define NR_DISC 10
 
-struct aluno {
+typedef struct aluno {
 	int numero;
 	char nome[STR_SIZE];
 	int disciplinas[NR_DISC];
 	int flag;
-};
+}aluno;
 
 void fail_fork(int p){
 	if(p == -1) {
@@ -47,19 +47,19 @@ void fail_unlink(int r){
 
 int main(void){
 	
-	struct aluno* al;
-	int fd, size = sizeof(struct aluno),i;
+	aluno* al; //criacao do pointer para a estrutura aluno 
+	int fd, size = sizeof(aluno),i; // calculo do size e int para criacao da memoria e for's
 	
 	// criação da memoria partilhada
 	fd = shm_open("/shm",O_CREAT|O_EXCL|O_RDWR, S_IWUSR|S_IWUSR);
 	ftruncate(fd, size);
-	al = (struct aluno*)mmap(NULL, size, PROT_WRITE, MAP_SHARED, fd, 0);
+	al = (aluno*)mmap(NULL, size, PROT_WRITE, MAP_SHARED, fd, 0);
 	
-	// criacao de outro processo
+	// fork
 	pid_t p = fork();
 	fail_fork(p);
 	
-	if(p==0){
+	if(p==0){//processo filho
 		
 		// verificção da flag
 		while(al->flag == 0) {	
@@ -68,9 +68,9 @@ int main(void){
 		//variaveis do filho
 		int high=0,low=21,avg=0;
 		
-		for (i = 0; i < NR_DISC; i++){
+		for (i = 0; i < NR_DISC; i++){//percorrer e verificar  a maior e menor nota, assim como a media
 			
-			printf("Nota da disciplina numero %d: %d\n",i+1,al->disciplinas[i]);
+			printf("Nota da disciplina numero %d: %d\n",i+1,al->disciplinas[i]);//print da nota de uma disciplina 
 			
 			if(al->disciplinas[i] < low) { //alteração do minimo
 				low = al->disciplinas[i];
@@ -91,7 +91,8 @@ int main(void){
 		printf("Média das notas obtidas: %d\n", (avg/NR_DISC)); //Print da media das notas
 		
 		exit(EXIT_SUCCESS);
-	}else{
+		
+	}else{//processo pai
 		
 		//pedido do nome
 		printf("Nome do aluno: ");
@@ -101,7 +102,7 @@ int main(void){
 		printf("Numero mecanografico: ");
 		scanf("%d", &al->numero);
 		
-		for(i = 0; i < NR_DISC; i++) {
+		for(i = 0; i < NR_DISC; i++) {// percorre pedindo a nota de uma discplina (notas devem ser de 0 a 20)
 			printf("Disciplina %d: ", i+1);
 			scanf("%d", &al->disciplinas[i]);
 		}
