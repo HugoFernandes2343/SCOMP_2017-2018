@@ -44,12 +44,15 @@ int main(){
 	
 	/*Aceder a memoria, ler os numeros do array e calcular a media*/
 	printf("Reader: A ler da memoria partilhada....\n");
+	
 	int sum=0;
 	for(int i = 0; i<10; i++){
 		printf("nr: %d\n", numbers->arr[i]);
 		sum += numbers->arr[i];
 	}
+	
 	double avr = (double) sum/10;
+	
 	printf("Average: %.3f\n", avr);
 	
 	/*Desliga o objeto de memoria partilhada, fecha o descritor e remove a memoria partilhada do sistema de ficheiros*/

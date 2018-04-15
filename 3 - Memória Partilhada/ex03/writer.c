@@ -45,9 +45,11 @@ int main(){
 	numbers = (array*) mmap(NULL,data_size,PROT_READ|PROT_WRITE,MAP_SHARED,fd,0);
 	
 	printf("Writer: A escrever na memoria partilhada...\n");
+	
 	/*Preenche array da memoria partilhada com numeros random*/
 	time_t t;
 	srand ((unsigned) time (&t));
+	
 	for(int i = 0; i < 10; i++){
 		numbers->arr[i] = (rand()%20) + 1;
 	}

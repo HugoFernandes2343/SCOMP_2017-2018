@@ -51,6 +51,7 @@ int main(){
 		fo = fork();
 		if(fo == 0){
 			int max = -1;
+			
 			/*ciclo for que para cada filho define qual o intervalo de numeros que ele vai percorrer*/
 			for (int j = i*NUMBS/CHILDS; j < (i*NUMBS/CHILDS)+NUMBS/CHILDS; j++){
 				if(numbers[j] > max){
@@ -63,6 +64,7 @@ int main(){
 			if(write(pi[1], &max, sizeof(max)) < 0){
 				perror("F- Error writing");	
 			}
+			
 			close(pi[1]);
 			exit(0);
 		}
@@ -72,11 +74,13 @@ int main(){
 	/*calcula o max global, imprime resultado*/
 	int max = -1;
 	for(int i = 0; i<10; i++){
+		
 		int local;
 		/*le do pipe*/
 		if(read(pi[0], &local, sizeof(local)) <0){
 					perror("F- Error reading");
 		}
+		
 		printf("Local Max nr %i: %i\n", i, local);
 		if(local > max){
 			max = local;

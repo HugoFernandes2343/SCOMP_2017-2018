@@ -75,6 +75,9 @@ int main(void){
 			
 		}
 		
+		close(p0[0]);
+		close(p0[1]);
+		
 		exit(EXIT_SUCCESS);
 		
 	}else{//processo  pai producer
@@ -100,6 +103,10 @@ int main(void){
 			}
 			
 		}
+		
+		close(p0[0]);
+		close(p0[1]);
+		
 		wait(NULL);
 	}
 	return 0;
