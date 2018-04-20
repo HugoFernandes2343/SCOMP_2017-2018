@@ -1,23 +1,34 @@
 #variaveis
+# variaveis
 
-MAIN = cod
-OTHER = 
-EXEC = ex01
+INCLUDES =
+SOURCES = main.c
+OBJFILES = main.o
+EXEC = exemplo
 
 
-${EXEC}: ${MAIN}.o ${OTHER}.o
-	gcc -Wall -g ${MAIN}.o ${OTHER}.o -o ${EXEC}
 
-${MAIN}.o: ${MAIN}.c ${OTHER}.h
-	gcc -Wall -g -c ${MAIN}.c
+# regras de sufixo
+.SUFFIXES : .c .o
+.SUFFIXES : .s .o
 
-${OTHER}.o: ${OTHER}.s
-	gcc -Wall -g -c ${OTHER}.s
+# como transformar um .c num .o ; $< -- nome do ficheiro
+.c.o:
+	gcc -Wall -g -c $<
+# como transformar um .s num .o ; $< -- nome do ficheiro
+.s.o:
+	as $< -o $*.o
+
+${OBJFILES}: ${SOURCES} ${INCLUDES}
+
+${EXEC}: ${OBJFILES}
+	gcc -Wall -g -o ${EXEC} ${OBJFILES} -lpthread -lrt
 
 run: ${EXEC}
 	./${EXEC}
+
 clean:
-	rm *.o ${EXEC}
-	
-debug: ${EXEC}
+	rm -f ${OBJFILES} ${EXEC}
+
+debug:
 	gdb -tui ${EXEC}
