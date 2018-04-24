@@ -1,0 +1,8 @@
+sem_t *semaforo
+semaforo = 1
+
+sem_wait(semaforo);
+//operacoes de escrita para a memoria partilhada e imprimir e sleep
+sem_post(semaforo);
+
+//unlink do semaforo quando a flag do contador for 49 ou seja ja estiver no 50ª processo
