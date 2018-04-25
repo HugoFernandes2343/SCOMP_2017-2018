@@ -1,0 +1,13 @@
+sem_t *semaforo
+semaforo = 1
+
+//escolha de escrita ou remoçao
+//escrita
+sem_wait(semaforo);
+//operacoes de escrita para a memoria partilhada e imprimir e sleep
+sem_post(semaforo);
+
+//remocao
+sem_timedwait(semaforo);
+//operacoes de remocao
+sem_post(semaforo);
