@@ -1,0 +1,38 @@
+sem_t sem_12 = 0;
+sem_t sem_23 = 0;
+sem_t sem_31 = 0;
+
+//criar os processos filhos
+
+//processo1
+
+//print da primeira frase do primeiro filho
+
+sem_post(sem_12);
+sem_wait(sem_31);
+
+//print da segunda frase do primeiro filho
+sem_post(sem_12);
+
+//processo2
+
+sem_wait(sem_12);
+//print da primeira frase do segundo filho
+
+sem_post(sem_23);
+sem_wait(sem_12);
+
+//print da segunda frase do segundo filho
+sem_post(sem_23);
+
+//Processo3
+
+sem_wait(sem_23);
+//print da primeira frase do terceiro filho
+sem_post(sem_31);
+
+sem_wait(sem_23);
+//print da segunda frase do terceiro filho
+
+//processo pai
+unlink semaforo
