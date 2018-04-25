@@ -1,0 +1,25 @@
+/* criar 2 semaforos*/
+
+sem_pai = sem_open(0);
+sem_filho = sem_open(1); 				//filho vai ser o primeiro a executar por isso e iniciado a 1
+
+
+/* no processo filho, dentro de um ciclo para 15 vezes, vai ver se o seu semaforo esta verde e imprimir e depois fazer post do semaforo do pai*/
+
+filho {
+	loop{
+		sem_wait(sem_filho);
+		printf("sou o filho");
+		sem_post(sem_pai);
+	}
+}
+
+/* no processo pai, dentro de um ciclo para 15 vezes, vai ver se o seu semaforo esta verde e imprimir e depois fazer post do semaforo do filho*/
+
+pai{
+	loop{
+		sem_wait(sem_pai);
+		printf("sou o pai");
+		sem_post(sem_filho);
+	}
+}

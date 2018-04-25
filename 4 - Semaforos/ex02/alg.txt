@@ -1,0 +1,18 @@
+/* vao ser usados 8 semaforos, um para cada processo, todos iniciados a 0*/
+
+sem_t *sem[8] = 0;
+
+/* antes do fork fazemos post ao semaforo do primeiro processo a correr (sem[0]) */
+
+sem_post(sem[0]);
+
+/* Para cada processo fazemos wait ao seu semaforo e depois de aceder aos ficheiros fazemos post ao semaforo do processo seguinte */
+
+for(i = 0; i<Processo; i++{
+
+	sem_wait(sem[i]);
+	//ler e escrever nos ficheiros
+	sem_post(sem[i+1]);
+}
+
+/*assim apenas um processo de cada vez tem acesso aos ficheiros*/

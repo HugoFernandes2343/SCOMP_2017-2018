@@ -1,0 +1,19 @@
+/* criar semaforo a 0*/
+
+sem = sem_open(0);
+
+
+/* no processo filho imprimir e depois fazer post do semaforo*/
+
+filho {
+
+	printf("sou o filho");
+	sem_post(sem);
+}
+
+/* no processo pai fazer wait de forma a esperar que o filho acabe */
+
+pai{
+	sem_wait(sem);
+	printf("sou o pai");
+}

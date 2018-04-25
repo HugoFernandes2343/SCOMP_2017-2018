@@ -1,0 +1,12 @@
+semaforo = 1;
+
+/* para cada processo filho */
+
+sem__wait;
+
+le do ficheiro de input;
+escreve no ficheiro de output;
+
+sem_post;
+
+/* assim apenas um processo de cada vez tera acesso aos ficheiros */

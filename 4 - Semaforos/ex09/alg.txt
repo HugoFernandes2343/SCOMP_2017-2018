@@ -1,0 +1,24 @@
+/* criar 2 semaforos iniciados a 0*/
+
+sem_comida = sem_open(0);
+sem_bebida = sem_open(0);
+
+/* o processo 1 vai comprar a comida, fazer post ao semaforo da comida e depois ficar a espera que o semaforo da bebida fique verde antes de comer e beber*/
+
+P1{
+	buy_chips();
+	sem_post(sem_comida);
+	sem_wait(sem_bebida);
+	eat_and_drink();
+}
+
+/* o processo 2 vai comprar a bebida, fazer post ao semaforo da bebida e depois ficar a espera que o semaforo da comida fique verde antes de comer e beber */
+
+
+P2{
+	buy_beer();
+	sem_post(sem_bebida);
+	sem_wait(sem_comida);
+	eat_and_drink();
+}
+
