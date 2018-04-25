@@ -69,11 +69,11 @@ int main(){
 	if(p == 0 ){
 		
 		for(int i=0; i<MESS; i++){
-			sem_wait(sem_filho);
+			sem_wait(sem_filho);// a primeira vez corre logo nas proximas execuções espera que o pai dê post ao sem_filho
 			
 			printf("Message nr: %d, \"Eu sou o Filho!\"\n", i+1);
 			
-			sem_post(sem_pai);
+			sem_post(sem_pai); // faz post ao semaforo pai para que o processo pai possa executar uma iterecação do seu ciclo
 		}
 		
 		exit(0);
@@ -81,13 +81,14 @@ int main(){
 	}
 	
 	for(int i = 0; i<MESS; i++){
-		sem_wait(sem_pai);
+		sem_wait(sem_pai);// verifica se pode ser inicializada uma execucao do ciclo
 		
 		printf("Message nr: %d, \"Eu sou o Pai!\"\n", i+1);
 		
-		sem_post(sem_filho);
+		sem_post(sem_filho);// faz post ao semaforo do filho para que este possa fazer um iteração do seu ciclo
 	}
 	
+	//unlinks
 	fail_sem_unlink(sem_unlink("sem_pai"));
 	fail_sem_unlink(sem_unlink("sem_filho"));
 	
