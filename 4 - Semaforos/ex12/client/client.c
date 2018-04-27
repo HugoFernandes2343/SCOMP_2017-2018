@@ -100,11 +100,11 @@ int main(){
 			
 			sem_wait(sem_1); //espera que o semaforo 1 seja iniciado pelo server /incrementado pelo cliente 
 		
-			sleep(1 /*+ rand() % 10*/); //sleep para esperar de 1 a 10 segundos
-		
 			ticket_number = *number; // vai buscar á memoria o numero do bilhete
 		
 			printf("I got the number %d.\n", ticket_number); //imprime o numero do bilhete
+			
+			sleep(1 + rand() % 10); //sleep para esperar de 1 a 10 segundos
 		
 			sem_post(sem_2); // incrementa o semaforo 2 para que o server possa passar para o proximo bilhete
 			
