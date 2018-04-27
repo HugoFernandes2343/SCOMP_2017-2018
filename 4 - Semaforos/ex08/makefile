@@ -4,7 +4,7 @@
 INCLUDES =
 SOURCES = main.c
 OBJFILES = main.o
-EXEC = ex04
+EXEC = ex08
 
 
 
@@ -32,4 +32,3 @@ clean:
 
 debug:
 	gdb -tui ${EXEC}
-

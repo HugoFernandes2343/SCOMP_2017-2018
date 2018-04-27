@@ -1,0 +1,22 @@
+sem sems
+sem semc
+count c
+count s
+s=0
+c=0
+
+while //s
+
+if((s-c)>0){
+	nao deixa escrever s 
+}
+
+s=1
+c=0
+
+while
+if((c-s)>0){
+sem_wait(semc
+	nao deixa escrever s 
+}
+escreve c

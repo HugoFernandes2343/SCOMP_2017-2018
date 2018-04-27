@@ -1,0 +1,15 @@
+sem_t sem1
+sem_t sem2
+
+int *number = 1;
+
+//inicia os semaforos
+sem1=1
+sem2=0
+
+//para um determinado numero de clientes faz
+
+sem_wait(sem2) //espera que um novo cliente aparecea
+//incrementa number
+
+//depois do ciclo limpa a memoria e sem

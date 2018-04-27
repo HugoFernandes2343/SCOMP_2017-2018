@@ -35,9 +35,9 @@ void fail_fork(int p){
 
 int main(){
 	
-	sem_t *sem_12;
-	sem_t *sem_23;
-	sem_t *sem_31;
+	sem_t *sem_12; //semaforo que o processo 1 altera para que o processo 2 possa imprimir
+	sem_t *sem_23; //semaforo que o processo 2 altera para que o processo 3 possa imprimir
+	sem_t *sem_31; //semaforo que o processo 3 altera para que o processo 1 possa imprimir 
 	
 	//open do semaforos
 	sem_12 = sem_open("semaforo12", O_CREAT, 0644, 0);
@@ -58,15 +58,19 @@ int main(){
 		
 	if(p1==0){//processo 1
 		
+		//primeiro print
 		printf("Sistemas ");
 		fflush(stdout);
-		sem_post(sem_12);
 		
+		//passa para o segundo e espera que o terceiro escreva
+		sem_post(sem_12);
 		sem_wait(sem_31);
 		
+		//segundo print
 		printf("a ");
 		fflush(stdout);
 		
+		//passa para o segundo e acaba o processo numero 1
 		sem_post(sem_12);
 		
 		exit(EXIT_SUCCESS);
@@ -77,17 +81,23 @@ int main(){
 	fail_fork(p2);
 		
 	if(p2==0){//processo 2
+		
+		//espera que o processo 1 de permissao de inicio
 		sem_wait(sem_12);
 		
+		//primeiro print do proceeso 2
 		printf("de ");
 		fflush(stdout);
 		
+		//passa para o processo 3 a permissao e espera pela permissao vinda do primeiro novamente
 		sem_post(sem_23);
 		sem_wait(sem_12);
 		
+		//segundo print do processo 2
 		printf("melhor ");
 		fflush(stdout);
 		
+		//passa para o processo 3 e termina o processo 2
 		sem_post(sem_23);
 		
 		exit(EXIT_SUCCESS);
@@ -99,15 +109,22 @@ int main(){
 		
 	if(p3==0){//processo 3
 		
+		//inicia se num estado de espera pela permicao vinda do processo 2
 		sem_wait(sem_23);
+		
+		//primeiro print do processo 3
 		printf("Computadores - ");//print da primeira frase do terceiro filho
 		fflush(stdout);
+		
+		//passa permissao ao processo 1 e espera pela permissao proveniente do processo 2
 		sem_post(sem_31);
-
 		sem_wait(sem_23);
+		
+		//segundo print do processo 3
 		printf("disciplina. ");
 		fflush(stdout);
 		
+		//termina o processo
 		exit(EXIT_SUCCESS);
 	}
 	

@@ -1,0 +1,8 @@
+sem sem_1
+sem sem_2
+
+sem_wait(sem_1); //espera que o server inicie o semaforo a 1/ que o cliente a ser corrido anteriormente o ponha a 1 
+//sleep
+//imprimir numero
+sem_post(sem_2); // incrementa o semaforo para o servidor incrementar o numer dos bilhetes
+sem_post(sem_1); // incrementa o semaforo para o proximo cliente poder escrever

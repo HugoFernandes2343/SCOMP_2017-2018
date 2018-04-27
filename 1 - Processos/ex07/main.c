@@ -21,7 +21,7 @@ int main ()
 
 	time_t t;					/* needed to initialize random number generator (RNG) */
 	int j;
-
+	
 	/* intializes RNG (srand():stdlib.h; time(): time.h) */
 	srand ((unsigned) time (&t));
 

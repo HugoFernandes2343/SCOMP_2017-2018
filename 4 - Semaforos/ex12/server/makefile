@@ -2,9 +2,9 @@
 # variaveis
 
 INCLUDES =
-SOURCES = main.c
-OBJFILES = main.o
-EXEC = ex04
+SOURCES = server.c
+OBJFILES = server.o
+EXEC = ex12s
 
 
 
@@ -32,4 +32,3 @@ clean:
 
 debug:
 	gdb -tui ${EXEC}
-
