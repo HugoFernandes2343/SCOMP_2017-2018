@@ -1,22 +1,42 @@
-sem sems
-sem semc
-count c
-count s
-s=0
-c=0
+struct:
+count need_c //numero de c a menos, se for 1 é porque existe mais um s que c -1 mais um c que s
+count need_s //numero de s a menos, se for 1 é porque existe mais um c que s -1 mais um s que C
+count letters //numero de letras totais
+array
 
-while //s
 
-if((s-c)>0){
-	nao deixa escrever s 
+need_s=0
+need_c=0
+letters = 0;
+
+sem sem_write// inicia a 1
+sem sem_mutex// inicia a 1
+
+//fazer o primeiro fork
+
+while(1){//escreve s
+	sem_wait(write);
+	
+	//verificar se chegou ao limite do array sair quando chegar ao limite
+	//condicao que verifique as variaveis de count
+		sem_wait(mutex)
+		//escreve s no array decrementa o count need_s incrementa o count need_c e incrementa letters
+		sem_post(mutex)
+	sem_post(write)
 }
-
-s=1
-c=0
-
-while
-if((c-s)>0){
-sem_wait(semc
-	nao deixa escrever s 
+//fazer o segundo fork
+while(1){//escreve c
+	sem_wait(write);
+	
+	/verificar se chegou ao limite do array sair quando chegar ao limite
+	//condicao que verifique as variaveis de count
+		sem_wait(mutex)
+		//escreve c no array decrementa o count need_c incrementa o count need_s e incrementa letters
+		sem_post(mutex)
+	sem_post(write);
 }
-escreve c
+wait(null);
+
+//usar o pai para imprimir a string
+//fechar sem's e memoria
+

@@ -1,0 +1,42 @@
+adaptacao do barbeiro dorminhoco com 3 barbeiros.
+cliente = passageiro
+barbeiro = entrar para o comboio
+lugares_vazios = pessoas_esperando
+cadeira do barbeiro = portas livres
+
+sem_t passageiro
+sem_t portas
+sem_t entrada
+sem_t mutex
+int pessoas
+
+
+// cliente
+
+sem_wait(mutex)
+
+//se a variavel pessoas chegar a 200 fazer up ao mutex e sair 
+
+//se nao ouver portas livres esperar ate existir portas livres
+sem_wait(portas)
+
+// até la fazer pessoas++ 
+sem_post(mutex);
+sem_post(passageiro);
+
+///////////////////
+
+sem_wait(entrada); //entra
+sem_post(portas);
+sem_wait(mutex);
+
+
+//barbeiro
+
+do{
+	sem_wait(passageiro);
+	
+	/entra/
+	
+	sem_post(entrada);
+}while(1);

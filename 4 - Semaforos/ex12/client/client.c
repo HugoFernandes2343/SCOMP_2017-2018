@@ -10,7 +10,7 @@
 #include <semaphore.h>
 #include <time.h>
 
-//documento que mostra o raciocinio: algoritmo.txt
+
 
 //documento que mostra o raciocinio: algoritmo.txt
 
