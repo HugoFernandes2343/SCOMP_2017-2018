@@ -1,0 +1,49 @@
+//programa main cria os semaforos faz forks o pai fica a "sala" os filhos criam os visitantes pai regula o limite de vezes que a sala abre e fecha baseado no numero de processos pedidos
+
+main:
+
+//cria  semaforos
+sem_t visitors = 5;
+sem_t visiting = 0;
+sem_t room = 0; //estado da sala e uma especie de mutex de entrada
+
+
+//cria processos filhos
+
+if//os filhos 
+	while(1)
+		//verifica como esta a exposicao uma verificacao para numero de pessoas que estao la e outra para se esta aberta
+		sem_wait(visitors); //numero de pessoas
+		sem_wait(room); //aberta
+		sem_post(room) //deixa entrar outros
+		
+		//print in
+		
+		//fica a visitar
+		sem_wait(visiting);
+		//sai 
+		
+		//print out
+		
+		exit
+	
+// pai
+	while(j<=num_proc/5 +1)
+		
+		
+		//abrir exposição
+		sem_post(room);
+		
+		//tempo em que esta aberta
+		
+		//fechar
+		sem_wait(room);
+		
+		//para cada visitante na sala deixar los sair da sala, aumenta o numero de pessoas que podem entrar
+		sem_post(visiting);
+		sem_post(visitors);
+
+	
+	end
+	unlinks
+return 0
