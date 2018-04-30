@@ -97,7 +97,7 @@ int main(){
 	}
 	printf("Global max: %i\n", max);
 	
-	/*Desliga o objeto de memoria partilhada, fecha o descritor e remove a memoria partilhada do sistema de ficheiros*/
++	/*Desliga o objeto de memoria partilhada, fecha o descritor e remove a memoria partilhada do sistema de ficheiros*/
 	fail_unmap(munmap(localMax, data_size));
 	fail_close(close(fd));
 	fail_unlink(shm_unlink("/shmem"));
