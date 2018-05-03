@@ -64,14 +64,13 @@ void consult (db *dt, sem_t *sem[]){
 		for(int i =0; i<RECORDS; i++){			/*ciclo que passa por todos os records*/
 			
 			sem_wait(sem[i]);		/*tenta fazer wait ao semaforo de cada record*/
-			//if(check == 0){							/*caso tenha sido bem sucedido o wait (se nao tiver conseguido fazer wait vai ignorar este record) */
 				if(nr == dt->data[i].number){			/*caso o nr a procurar seja igual ao do ciclo */
 					rec = dt->data[i].number;				/*guarda index do record*/
 					indx = i;
+					break;
 				} else {								/*se o nr a procurar for diferente*/
 					sem_post(sem[i]);						/*faz post ao semaforo*/
 				}
-			//}
 		}
 		
 		if(rec >-1 ){							/* caso tenha sido encontrado o record pretendido */

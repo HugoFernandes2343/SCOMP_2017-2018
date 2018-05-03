@@ -1,0 +1,9 @@
+/* cria 100 semaforos, 1 para cada lugar da memoria partilhada */
+
+/*antes de aceder a qualquer record, faz wait ao seu semaforo */
+
+sem_wait(sem[i]);
+
+//insert or consult
+
+sem_post(sem[i]);

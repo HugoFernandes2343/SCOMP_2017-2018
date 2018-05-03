@@ -1,0 +1,38 @@
+/* criar 3 semaforos*/
+
+buffer[10]				//buffer circular de memoria
+
+sem_open(canWrite, 10);			//limita o acesso a memoria partilhada para escrita
+sem_open(canRead, 0);			//limita o acesso a memoria partilhada para leitura
+sem_open(write_index, 1);			//limita o acesso aos index de escrita
+					//acesso ao read index nao necessita de semaforo pois apenas um processo acede ao mesmo (pai)
+
+write_index = 0				//inicia o index de escrita
+read_index = 0				//inicia o index de leitura
+
+/*nos filhos*/
+
+	sem_wait(canWrite);		//faz wait ao write, verifica se pode escrever
+	sem_wait(index_access);		//faz wait ao index, verifica se pode ver qual o index atual
+
+	if(write_index == BUF_SIZE){				//se o index for igual ao buffer
+		write_index = 0;					//faz reset ao buffer
+	}				
+	
+	buffer[write_index] = nextInt;
+	
+	sem_post(index_access);		//faz post ao semaforo de forma a permitir a outro processo aceder ao index de escrita
+	sem_post(canRead);		//faz post ao semaforo avisando que ja e possivel ler
+
+
+/*no pai*/
+
+		if(read_index == BUF_SIZE){			//se o index chegar ao maximo do buffer faz reset de volta a 0
+			read_index = 0;				faz reset de volta a 0
+			for(int j = 0; j <10; j++){
+				sem_post(canWrite);		//faz post 10 vezes de forma aos filhos escreverem os 10 numeros a seguir
+			}
+		}
+		sem_wait(canRead);				//verifica se pode ler
+		printf()					//imprime
+		read_index++;					//aumenta o index de leitura
