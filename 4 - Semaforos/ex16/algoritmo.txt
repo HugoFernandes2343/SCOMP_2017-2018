@@ -1,0 +1,28 @@
+sem_t W_E
+sem_t E_W
+sem_t use
+
+int carros[20] = {1,1,2,2,1,2,2,2,2,1,1,2,1,2,1,2,1,2,1,2}
+
+W_E = 0 se esta a a 1 indica que a pssagem é de west para east
+E_W = 0 se esta a a 1 indica que a pssagem é de east para west
+use = 0 se esta a 0 indica que nenhum carro esta a usar a estrada;
+
+//pai gere o caminho que esta ddisponivel e tempo ate estar disponivel
+
+//filhos pegam num dos valores do carro que estaram no array e simulam um carro que entra num dos caminhos
+
+for(0<20)
+	fork
+	if(carros[i]==1){
+		while(use!=0&&E_){
+			wait(use)
+		}
+		post(use);
+		caminho E_W
+		
+	}
+	if(carros[i]==2){
+		camniho W_E
+		
+	}
