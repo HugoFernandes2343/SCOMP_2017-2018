@@ -63,7 +63,7 @@ void consult (db *dt, sem_t *sem[]){
 		printf("nr a pesquisar: %i\n", nr);
 		for(int i =0; i<RECORDS; i++){			/*ciclo que passa por todos os records*/
 			
-			sem_wait(sem[i]);		/*tenta fazer wait ao semaforo de cada record*/
+			sem_wait(sem[i]);		/*faz wait ao semaforo de cada record*/
 				if(nr == dt->data[i].number){			/*caso o nr a procurar seja igual ao do ciclo */
 					rec = dt->data[i].number;				/*guarda index do record*/
 					indx = i;
@@ -85,39 +85,45 @@ int insert (db *dt, sem_t *sem[], int indx){
 	
 	int nr;
 	char nm[50], add[500];
-	printf("Introduza o nr: \n");
+	printf("Introduza o nr: \n");										//pede o nr a inserir
 	scanf("%d", &nr);
-	printf("Introduza o nome: \n");
+	printf("Introduza o nome: \n");										//pede o nome a inserir
 	scanf("%s", nm);
-	printf("Introduza a morada:\n");
+	printf("Introduza a morada:\n");									//pede a morada a inserir
 	scanf("%s", add);
 	
-	printf("record a introduzir em memoria: \nNR: %d \nNome: %s \nMorada: %s\n", nr, nm, add);
+	printf("record a introduzir em memoria: \nNR: %d \nNome: %s \nMorada: %s\n", nr, nm, add);		
 	
-	sem_wait(sem[indx]);
+	sem_wait(sem[indx]);												//faz wait ao semaforo do lugar do array onde vai escrever
 	
+	/**
+	 * escreve na memoria
+	 **/
 	dt->data[indx].number=nr;
 	strcpy(dt->data[indx].name, nm);
 	strcpy(dt->data[indx].address, add);
 	
-	sem_post(sem[indx]);
+	sem_post(sem[indx]);												//faz post ao semaforo do lugar do array onde escreveu
 	
-	return indx+1;
+	return indx+1;														//retorna o index do lugar a seguir aquele onde escreveu
 }
 
 void consultAll(db *dt, sem_t *sem[], int indx){
 	
 	for(int i=0;i<indx; i++){
-			printf("Rec %i\n", i);
+			printf("Rec %i\n", i);										//imprime em que record vai
 			
-			sem_wait(sem[i]);
+			sem_wait(sem[i]);											//faz wait ao semaforo do record atual
 			
+			/**
+			 * imrpime a imformacao desse record
+			 **/
 			printf("Number: %d\n", dt->data[i].number);
 			printf("Name: %s\n", dt->data[i].name);
 			printf("Address: %s\n", dt->data[i].name);
-			
-			sem_post(sem[i]);
-	}
+				
+			sem_post(sem[i]);											//faz post ao semaforo do record que acabou de imprimir
+	}		
 	
 }
 
@@ -130,7 +136,7 @@ int main(){
 	 **/
 	char names[RECORDS][10];
 	char baseName[5] = "sem";
-	for(int i = 0; i< RECORDS; i++){
+	for(int i = 0; i< RECORDS; i++){		//cria array com nomes para os semaforos
 		char temp_string[10];
 		sprintf(temp_string, "%s%i", baseName, i);	
 		strcpy(names[i], temp_string);

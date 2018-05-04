@@ -25,18 +25,27 @@ void fail_sem(sem_t *s){
 	}
 }
 
+/**
+ * Verifica se ounmap da shmem falhou
+ **/
 void fail_unmap(int r){
 	if(r == -1) {
 			perror("Unmap falhou");
 	}
 }
 
+/**
+ * Verifica se o fecho da shmem falhou
+ **/
 void fail_close(int r){
 	if(r == -1) {
 			perror("shm close falhou");
 	}
 }
 
+/**
+ * Verifica se o unlink da shmem falhou
+ **/
 void fail_unlink(int r){
 	if(r == -1) {
 			perror("Shm unlink falhou");
@@ -89,7 +98,7 @@ int main(){
 	
 	for(int i = 0; i <2; i++){
 		
-		p = fork();
+		p = fork();								//faz fork
 		
 		if(p == 0){
 			
@@ -100,7 +109,7 @@ int main(){
 				sem_wait(index_access);									//verifica se pode aceder ao index
 				if(data->write_index == BUF_SIZE){							//se o index for igual ao buffer
 					data->write_index = 0;								//faz reset ao buffer
-				}				
+				}		
 				data->numbers[data->write_index] = data->current;		//coloca o nr atual a no sitio correto da memoria
 				data->current++;										//incrementa o numero atual
 				data->write_index++;									//incrementa o index de escrita
@@ -114,19 +123,23 @@ int main(){
 	
 	}
 		
-	for(int i = 0; i < 30 ;i++){
-			
-			if(read_index == BUF_SIZE){
-				read_index = 0;
-				for(int j = 0; j <10; j++){
+	for(int i = 0; i < 30 ;i++){										//para os 30 nr
+		
+			if(read_index == BUF_SIZE){									//se o index de leitura for igual ao tamanho do buffer
+				read_index = 0;											//faz reset ao index
+				for(int j = 0; j <BUF_SIZE; j++){								//faz post ao semaforo de escrita para cada lugar livre do buffer
 					sem_post(canWrite);
 				}
 			}
-			sem_wait(canRead);
-			printf("%iº nr: %i\n", i, data->numbers[read_index]);
-			read_index++;
+			
+			sem_wait(canRead);											//verifica se pode ler
+			printf("%iº nr: %i\n", i, data->numbers[read_index]);		//imprime
+			read_index++;												//aumenta o index de leitura
 	}
-		
+	
+	/**
+	 * espera pelos filhos
+	 **/
 	wait(0);
 	wait(0);
 		

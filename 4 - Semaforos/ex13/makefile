@@ -1,7 +1,7 @@
 #variaveis
 
 MAIN = main
-EXEC = ex10
+EXEC = ex13
 
 
 ${EXEC}: ${MAIN}.o
