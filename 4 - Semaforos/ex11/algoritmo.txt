@@ -4,39 +4,51 @@ barbeiro = entrar para o comboio
 lugares_vazios = pessoas_esperando
 cadeira do barbeiro = portas livres
 
-sem_t passageiro
-sem_t portas
 sem_t entrada
+sem_t portas
+sem_t saida
 sem_t mutex
+int lugares disponiveis
 int pessoas
 
+//pai fica o comboio o filho craia filhos passageiros
 
-// cliente
+// passageiros
 
 sem_wait(mutex)
 
-//se a variavel pessoas chegar a 200 fazer up ao mutex e sair 
+//se o numero de lugares for 0 repetir o ciclo while
 
 //se nao ouver portas livres esperar ate existir portas livres
 sem_wait(portas)
 
-// até la fazer pessoas++ 
+// fazer  e lugares--
+sem_post(portas);
+
 sem_post(mutex);
-sem_post(passageiro);
+sem_post(entrada);
 
 ///////////////////
 
-sem_wait(entrada); //entra
-sem_post(portas);
+sem_wait(saida); //entra
+sem_wait(portas)
+
 sem_wait(mutex);
 
+//pessoas ++
+//lugares ++
 
-//barbeiro
+sem_post(mutex)
+
+sem_post(portas);
+
+
+//comboio
 
 do{
-	sem_wait(passageiro);
+	sem_wait(entrada);
 	
 	/entra/
 	
-	sem_post(entrada);
+	sem_post(saida);
 }while(1);

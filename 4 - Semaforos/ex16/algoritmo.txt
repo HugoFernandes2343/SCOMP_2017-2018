@@ -1,28 +1,69 @@
 sem_t W_E
 sem_t E_W
-sem_t use
+sem_t use1
+sem_t use2
+sem_t end
 
 int carros[20] = {1,1,2,2,1,2,2,2,2,1,1,2,1,2,1,2,1,2,1,2}
 
-W_E = 0 se esta a a 1 indica que a pssagem é de west para east
-E_W = 0 se esta a a 1 indica que a pssagem é de east para west
-use = 0 se esta a 0 indica que nenhum carro esta a usar a estrada;
+W_E = 0 se esta ha carros a passar pelo caminho
+E_W = 0 se esta ha carros a passar pelo caminho
+use1 = 0 diz se pode entrar um carro no segu caminho
+use2 = 0 diz se pode entrar um carro no segundo caminho
+end = 0 diz quantos carros ja chegaram ao fim da estrada a para que a escuçao possa continuar no outro sentido
 
-//pai gere o caminho que esta ddisponivel e tempo ate estar disponivel
+//pai gere o caminho que esta ddisponivel 
 
 //filhos pegam num dos valores do carro que estaram no array e simulam um carro que entra num dos caminhos
 
 for(0<20)
-	fork
+	fork()
 	if(carros[i]==1){
-		while(use!=0&&E_){
-			wait(use)
-		}
-		post(use);
-		caminho E_W
+		post(W_E)
+		wait(use1)
+		
+		//print que ta a andar na estrada
+		sleep(30);
+		//print de termino
+		
+		sempost(end)
+		
 		
 	}
 	if(carros[i]==2){
-		camniho W_E
+		post(E_W)
+		wait(use2)
+		
+		//print que ta a andar na estrada
+		sleep(30);
+		//print de termino
+		
+		sempost(end)
 		
 	}
+
+for(<20){
+	if(w_e>0){
+		count1
+		while(w_e>0){
+			sem_wait(W_E)
+			sem_post(use1)
+		}
+		for(<count1)
+			sem_wait(end)
+	}else if(E_W>0){
+		count2
+		while(E_w>0){
+			sem_wait(E_W);
+			sem_post(use2);
+		}
+		for(<count2)
+			sem_wait(end)
+	}
+}
+
+for(<20){
+	wait(null)
+}
+
+//unlink smeaforos
