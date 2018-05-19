@@ -72,6 +72,33 @@ void* trip(void* arg){
 		
 		pthread_mutex_unlock(&path.mux);// allows access to the line that was the path
 		
+	}else if(trip->tr.destination_city.id == 2){
+		line path;//line to go through to get to the destination
+		
+		for(int i=0; i<3; i++) {//for to find the correct line
+			
+			//since we know the train is in city 2 we just need to figure out the line that takes us to the destination city
+			if (trip->tr.current_city.id == trip->lines[i].c1.id) {//if the destination of this trips train is the city 1 of a line it means this is the correct path
+			
+			path = trip->lines[i];	//places this line as the path
+			
+			} 
+			
+		}
+		
+		pthread_mutex_lock(&path.mux);//tries to access the line in the path
+		
+		sleep(TRIPTIME); // trip simulation
+		
+		trip->tr.trip_time += TRIPTIME; //set of the triptime to the struct
+		
+		//print
+		printf("The train %d, in line %c -- %c from %c going to %c and took %d seconds\n", trip->tr.train_number, path.c1.city, path.c2.city, trip->tr.current_city.city, trip->tr.destination_city.city,trip->tr.trip_time);
+		
+		
+		pthread_mutex_unlock(&path.mux);// allows access to the line that was the path
+		
+		
 	}else{//the train will neet to  go through two lines
 		
 		line path[2]; //lines to go from the start to the destination
@@ -126,13 +153,13 @@ int main(){
 	//simulate city D- city C ; city A - city D ; city B - city A
 	
 	//threads
-	pthread_t threads[3];
+	pthread_t threads[4];
 	
 	//the 3 lines will be placed in this array with city B always as the second city since its the middle point
 	line lines[3];
 	
 	//the array contaning the all contaning structures for the 3 trips we will simulate
-	tripData trips[3];
+	tripData trips[4];
 	
 	//the array that contains the 4 city stuctures
 	city cities[4];
@@ -170,7 +197,7 @@ int main(){
 	pthread_mutex_init(&lines[2].mux, NULL);
 	
 	//array that contains the 3 trains
-	train trains[3];
+	train trains[4];
 	
 	//TRAIN FROM D TO C
 	trains[0].train_number = 1;
@@ -190,6 +217,12 @@ int main(){
 	trains[2].destination_city= cities[0];
 	trains[2].trip_time = 0;
 	
+	//TRAIN FROM A TO B
+	trains[3].train_number = 4;
+	trains[3].current_city = cities[0];
+	trains[3].destination_city= cities[1];
+	trains[3].trip_time = 0;
+	
 	//Placing the lines into the trip informations trip 1
 	trips[0].tr = trains[0];
 	trips[0].lines[0] = lines[0];
@@ -207,16 +240,24 @@ int main(){
 	trips[2].lines[0] = lines[0];
 	trips[2].lines[1] = lines[1];
 	trips[2].lines[2] = lines[2];
+	
+	//Placing the lines into the trip informations trip 4
+	trips[3].tr = trains[3];
+	trips[3].lines[0] = lines[0];
+	trips[3].lines[1] = lines[1];
+	trips[3].lines[2] = lines[2];
 
 	//creation of the threads 
 	pthread_create(&threads[0], NULL, trip, (void*)&trips[0]);
 	pthread_create(&threads[1], NULL, trip, (void*)&trips[1]);
 	pthread_create(&threads[2], NULL, trip, (void*)&trips[2]);
+	pthread_create(&threads[3], NULL, trip, (void*)&trips[3]);
 	
 	//join of the threads 
 	pthread_join(threads[0], NULL);
 	pthread_join(threads[1], NULL);
 	pthread_join(threads[2], NULL);
+	pthread_join(threads[3], NULL);
 	
 	//end
 	printf("All Threads are over\n");
