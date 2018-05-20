@@ -96,7 +96,7 @@ int main(){
 				
 				printf("Entrei na estrada de W para E sou o carro numero %d processo numero %d \n",i,getpid()); //entrada
 				
-				sleep(30);//travesia
+				sleep(1);//travesia
 				
 				printf("Sai da estrada de W para E sou o %d processo numero %d\n",i,getpid()); //saida
 				
@@ -113,7 +113,7 @@ int main(){
 				
 				printf("Entrei na estrada de E para W sou o carro numero %d processo numero %d \n",i,getpid()); //entrada
 				
-				sleep(30); //travesia
+				sleep(1); //travesia
 				
 				printf("Sai da estrada de E para W sou o %d processo numero %d\n",i,getpid()); //saida
 				
